@@ -39,8 +39,8 @@ RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     pip install --no-cache-dir sqlitebck && \
     pip install --no-cache-dir urlgrabber && \
     pip install --no-cache-dir zconfig && \
-    mkdir -p /home/devel && \
-    conda create --yes --quiet --offline --clone root -p /home/devel/.conda/envs/default && \
+    mkdir -p /home/conda && \
+    conda create --yes --quiet --offline --clone root -p /home/conda/.conda/envs/default && \
     rm -f /tmp/Anaconda2-${ANACONDA_VERSION}.sh
 
 # Environment variables
@@ -51,8 +51,20 @@ ENV LANG C.UTF-8
 ENV PATH .:/opt/conda/bin:$PATH
 ENV LD_LIBRARY_PATH /opt/conda/lib:$LD_LIBRARY_PATH
 
+# Add a user & set permissions of its home directory
+RUN adduser --disabled-password --uid 1001 --gid 0 --gecos "Conda" conda && \
+    mkdir -p -m 0775 /home/conda/.jupyter && \
+    echo "c.NotebookApp.ip = '*'" >> /home/conda/.jupyter/jupyter_notebook_config.py && \
+    chown -R conda /home/conda && \
+    chmod -R u+w,g+w /home/conda
+
+ENV HOME=/home/conda
+
 # Add an entrypoint script
 COPY assets/entrypoint.sh /sbin
+
+# Switch the user
+USER 1001
 
 # Entrypoint and default command
 ENTRYPOINT [ "/sbin/entrypoint.sh" ]

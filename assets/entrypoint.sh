@@ -15,9 +15,9 @@
 USER_ID=$(id -u)
 if [ x"$USER_ID" != x"0" -a x"$USER_ID" != x"1001" ]; then
     NSS_WRAPPER_PASSWD=/tmp/passwd.nss_wrapper
-    NSS_WRAPPER_GROUP=/etc/group
-    cat /etc/passwd | sed -e 's/^python:/builder:/' > $NSS_WRAPPER_PASSWD
-    echo "python:x:$USER_ID:0:Python,,,:/home/python:/bin/bash" >> $NSS_WRAPPER_PASSWD
+    NSS_WRAPPER_GROUP=/tmp/group.nss_wrapper
+    cat /etc/passwd | sed -e 's/^conda:/builder:/' > $NSS_WRAPPER_PASSWD
+    echo "conda:x:$USER_ID:0:Conda,,,:/home/conda:/bin/bash" >> $NSS_WRAPPER_PASSWD
     export NSS_WRAPPER_PASSWD
     export NSS_WRAPPER_GROUP
     LD_PRELOAD=/usr/lib/libnss_wrapper.so
@@ -27,7 +27,7 @@ fi
 # 2. Define default conda environment
 # -----------------------------------
 
-source activate /home/devel/.conda/envs/default
+source activate /home/conda/.conda/envs/default
 
 # 3. Run tini
 # -----------
