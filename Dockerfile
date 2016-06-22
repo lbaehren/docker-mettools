@@ -3,14 +3,16 @@ FROM ubuntu:16.04
 MAINTAINER christian Marquardt <christian@marquardt.sc>
 
 # Update & install development tools
+
 RUN apt-get update --fix-missing && \
-    apt-get install -y ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1 libxml2 libxml2-dev libboost-all-dev \
-                       dpkg grep sed make cmake gcc g++ gfortran git curl bzip2 automake autoconf autotools-dev libtool \
-                       libnss-wrapper && \
+    apt-get install -y ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1 libxml2 libxml2-dev \
+                       libboost-all-dev libnss-wrapper bzip2 curl dos2unix dpkg grep sed make cmake \
+                       automake autoconf autotools-dev libtool git gcc g++ gfortran && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Tini (see https://github.com/krallin/tini)
+
 RUN TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o "/v.*\"" | sed 's:^..\(.*\).$:\1:'` && \
     curl -L "https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini_${TINI_VERSION}.deb" > tini.deb && \
     dpkg -i tini.deb && \
@@ -18,9 +20,9 @@ RUN TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Anaconda (w/o MKL; see https://docs.continuum.io/mkl-optimizations/index)
+# Install Anaconda (w/o MKL; see https://docs.continuum.io/mkl-optimizations/index) & add a user
+
 #COPY assets/Anaconda2-4.0.0-Linux-x86_64.sh /tmp
-#RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
 RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     curl -L "https://repo.continuum.io/archive/Anaconda2-${ANACONDA_VERSION}.sh" > /tmp/Anaconda2-${ANACONDA_VERSION}.sh && \
     export PATH=/opt/conda/bin:$PATH && \
@@ -42,9 +44,17 @@ RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     pip install --no-cache-dir zconfig && \
     mkdir -p /home/conda && \
     conda create --yes --quiet --offline --clone root -p /home/conda/.conda/envs/default && \
+    adduser --disabled-password --uid 1001 --gid 0 --gecos "Conda" conda && \
+    mkdir -p -m 0775 /home/conda/.jupyter && \
+    echo "c.NotebookApp.ip = '*'" >> /home/conda/.jupyter/jupyter_notebook_config.py && \
+    chown -R conda /opt/conda && \
+    chown -R conda /home/conda && \
+    chmod -R u+w,g+w /opt/conda && \
+    chmod -R u+w,g+w /home/conda && \
     rm -f /tmp/Anaconda2-${ANACONDA_VERSION}.sh
 
 # Environment variables
+
 # http://bugs.python.org/issue19846
 # > At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*, and that's not OK.
 ENV LANG C.UTF-8
@@ -52,23 +62,15 @@ ENV LANG C.UTF-8
 ENV PATH .:/opt/conda/bin:$PATH
 ENV LD_LIBRARY_PATH /opt/conda/lib:$LD_LIBRARY_PATH
 
-# Add a user & set permissions of its home directory
-RUN adduser --disabled-password --uid 1001 --gid 0 --gecos "Conda" conda && \
-    mkdir -p -m 0775 /home/conda/.jupyter && \
-    echo "c.NotebookApp.ip = '*'" >> /home/conda/.jupyter/jupyter_notebook_config.py && \
-    chown -R conda /opt/conda && \
-    chown -R conda /home/conda && \
-    chmod -R u+w,g+w /opt/conda && \
-    chmod -R u+w,g+w /home/conda
-
-ENV HOME=/home/conda
-
 # Add an entrypoint script
+
 COPY assets/entrypoint.sh /sbin
 
-# Switch the user
+# Switch user
+
 USER 1001
 
 # Entrypoint and default command
+
 ENTRYPOINT [ "/sbin/entrypoint.sh" ]
 CMD [ "/bin/bash" ]
