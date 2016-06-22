@@ -36,6 +36,7 @@ RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     pip install --no-cache-dir conda-workon && \
     pip install --no-cache-dir egenix-mx-base && \
     pip install --no-cache-dir ftputil && \
+    pip install --no-cache-dir nose-timer && \
     pip install --no-cache-dir sqlitebck && \
     pip install --no-cache-dir urlgrabber && \
     pip install --no-cache-dir zconfig && \
@@ -55,7 +56,9 @@ ENV LD_LIBRARY_PATH /opt/conda/lib:$LD_LIBRARY_PATH
 RUN adduser --disabled-password --uid 1001 --gid 0 --gecos "Conda" conda && \
     mkdir -p -m 0775 /home/conda/.jupyter && \
     echo "c.NotebookApp.ip = '*'" >> /home/conda/.jupyter/jupyter_notebook_config.py && \
+    chown -R conda /opt/conda && \
     chown -R conda /home/conda && \
+    chmod -R u+w,g+w /opt/conda && \
     chmod -R u+w,g+w /home/conda
 
 ENV HOME=/home/conda

@@ -5,27 +5,27 @@
 # -----------
 
 anabash(){
-  docker run -v $PWD:/home/devel/work -w=/home/devel/work --rm -it marq/anaconda-nomkl /bin/bash "$@"
+  docker run -v $PWD:/home/conda/work -w=/home/conda/work --rm -it marq/anaconda /bin/bash "$@"
 }
 
 # 2. Run python
 # -------------
 
 anapython(){
-  docker run -v $PWD:/home/python/work -w=/home/python/work --rm -it marq/mettools python "$@"
+  docker run -v $PWD:/home/conda/work -w=/home/conda/work --rm -it marq/anaconda python "$@"
 }
 
 # 3. Run ipython
 # --------------
 
-mtipython() {
-  docker run -v $PWD:/home/python/work -w=/home/python/work --rm -it marq/mettools ipython
+anaipython() {
+  docker run -v $PWD:/home/conda/work -w=/home/conda/work --rm -it marq/anaconda ipython
 }
 
 # 4. Run jupyter notebook server
 # ------------------------------
 
-mtjupyter() {
+ananotebook() {
   #(sleep 3 && open "http://$(docker-machine ip docker2):8888")&
-  docker run -v $PWD:/home/python/work -w=/home/python/work -p 8888:8888 --rm -it marq/mettools jupyter notebook --no-browser --ip="\*" --notebook-dir=/home/python/work
+  docker run -v $PWD:/home/conda/work -w=/home/conda/work -p 8888:8888 --rm -it marq/anaconda jupyter notebook --no-browser --notebook-dir=/home/conda/work
 }
