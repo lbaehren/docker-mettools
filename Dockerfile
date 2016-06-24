@@ -7,7 +7,7 @@ MAINTAINER christian Marquardt <christian@marquardt.sc>
 RUN apt-get update --fix-missing && \
     apt-get install -y ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1 libxml2 libxml2-dev \
                        libboost-all-dev libnss-wrapper bzip2 curl dos2unix dpkg grep sed make cmake \
-                       automake autoconf autotools-dev libtool git gcc g++ gfortran && \
+                       automake autoconf autotools-dev libtool git gitk gcc g++ gfortran vim vim-gnome && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -20,9 +20,13 @@ RUN TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Anaconda (w/o MKL; see https://docs.continuum.io/mkl-optimizations/index) & add a user
+# Add a user
 
-#COPY assets/Anaconda2-4.0.0-Linux-x86_64.sh /tmp
+RUN adduser --disabled-password --uid 1001 --gid 0 --gecos "Conda" conda
+ENV HOME=/home/conda
+
+# Install Anaconda (w/o MKL; see https://docs.continuum.io/mkl-optimizations/index)
+
 RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     curl -L "https://repo.continuum.io/archive/Anaconda2-${ANACONDA_VERSION}.sh" > /tmp/Anaconda2-${ANACONDA_VERSION}.sh && \
     export PATH=/opt/conda/bin:$PATH && \
@@ -32,6 +36,8 @@ RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     conda install -y nomkl numpy scipy scikit-learn numexpr && \
     conda remove -y mkl mkl-service && \
     conda install -y basemap cheetah libnetcdf netcdf4 mysql-python anaconda-client conda-build && \
+    conda install -c eumetsat eugene=4.20 && \
+    conda install -c eumetsat libnetcdf-fortran=4.4.4 && \
     conda update -y --all && \
     conda clean -y --source-cache --index-cache --tarballs && \
     pip install --no-cache-dir alembic && \
@@ -42,11 +48,7 @@ RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     pip install --no-cache-dir sqlitebck && \
     pip install --no-cache-dir urlgrabber && \
     pip install --no-cache-dir zconfig && \
-    mkdir -p /home/conda && \
     conda create --yes --quiet --offline --clone root -p /home/conda/.conda/envs/default && \
-    adduser --disabled-password --uid 1001 --gid 0 --gecos "Conda" conda && \
-    mkdir -p -m 0775 /home/conda/.jupyter && \
-    echo "c.NotebookApp.ip = '*'" >> /home/conda/.jupyter/jupyter_notebook_config.py && \
     chown -R conda /opt/conda && \
     chown -R conda /home/conda && \
     chmod -R u+w,g+w /opt/conda && \
@@ -62,13 +64,18 @@ ENV LANG C.UTF-8
 ENV PATH .:/opt/conda/bin:$PATH
 ENV LD_LIBRARY_PATH /opt/conda/lib:$LD_LIBRARY_PATH
 
-# Add an entrypoint script
-
-COPY assets/entrypoint.sh /sbin
+# Add a notebook profile
+RUN mkdir -p -m 0775 /home/conda/.jupyter && \
+    echo "c.NotebookApp.ip = '*'" >> /home/conda/.jupyter/jupyter_notebook_config.py
 
 # Switch user
 
 USER 1001
+WORKDIR /home/conda
+
+# Add an entrypoint script
+
+COPY assets/entrypoint.sh /sbin
 
 # Entrypoint and default command
 
