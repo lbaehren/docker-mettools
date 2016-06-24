@@ -64,6 +64,8 @@ ENV LANG C.UTF-8
 ENV PATH .:/opt/conda/bin:$PATH
 ENV LD_LIBRARY_PATH /opt/conda/lib:$LD_LIBRARY_PATH
 
+ENV EUGENE_HOME /opt/conda/share/eugene/
+
 # Add a notebook profile
 RUN mkdir -p -m 0775 /home/conda/.jupyter && \
     echo "c.NotebookApp.ip = '*'" >> /home/conda/.jupyter/jupyter_notebook_config.py
