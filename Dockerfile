@@ -66,8 +66,10 @@ RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     conda remove -y mkl mkl-service && \
     conda install -y basemap cheetah cmake libnetcdf netcdf4 mysql-python anaconda-client conda-build && \
     conda install -c eumetsat eugene=4.20 && \
+    conda install -c eumetsat libnetcdf-cxx4=4.3.0 && \
     conda install -c eumetsat libnetcdf-fortran=4.4.4 && \
     conda install -c eumetsat epsar=1.4 && \
+    conda install -c eumetsat bufrdc=000405 && \
     conda update -y --all && \
     conda clean -y --source-cache --index-cache --tarballs && \
     pip install --no-cache-dir alembic && \
