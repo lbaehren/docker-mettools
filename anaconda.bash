@@ -2,7 +2,7 @@
 # ---------------------------------------------------------------
 
 anabuild(){
-    docker build -t "anaconda:ubuntu-16:04" .
+    docker build -t "anaconda:ubuntu-16.04" .
 }
 
 # 1. Run bash
