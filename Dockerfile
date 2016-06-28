@@ -50,7 +50,7 @@ RUN TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o
 #_______________________________________________________________________________
 # Add a user
 
-RUN adduser --disabled-password --uid 1001 --gid 0 --gecos "Conda" conda && \
+RUN adduser --disabled-password --uid 1001 --gid 0 --gecos "Conda" conda
 ENV HOME=/home/conda
 
 #_______________________________________________________________________________
@@ -67,6 +67,7 @@ RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     conda install -y basemap cheetah cmake libnetcdf netcdf4 mysql-python anaconda-client conda-build && \
     conda install -c eumetsat eugene=4.20 && \
     conda install -c eumetsat libnetcdf-fortran=4.4.4 && \
+    conda install -c eumetsat epsar=1.4 && \
     conda update -y --all && \
     conda clean -y --source-cache --index-cache --tarballs && \
     pip install --no-cache-dir alembic && \
