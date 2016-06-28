@@ -51,8 +51,6 @@ RUN TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o
 # Add a user
 
 RUN adduser --disabled-password --uid 1001 --gid 0 --gecos "Conda" conda && \
-    mkdir -p /home/conda/.ssh && \
-    ssh-keygen -t rsa -b 4096 -C "conda@eumetsat.int" -N "" -f /home/conda/.ssh/id_rsa
 ENV HOME=/home/conda
 
 #_______________________________________________________________________________
@@ -84,7 +82,6 @@ RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     chown -R conda /home/conda && \
     chmod -R u+w,g+w /opt/conda && \
     chmod -R u+w,g+w /home/conda && \
-    chmod -R 0600 /home/conda/.ssh/* && \
     rm -f /tmp/Anaconda2-${ANACONDA_VERSION}.sh
 
 #_______________________________________________________________________________
