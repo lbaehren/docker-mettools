@@ -2,15 +2,42 @@ FROM ubuntu:16.04
 
 MAINTAINER christian Marquardt <christian@marquardt.sc>
 
-# Update & install development tools
+#_______________________________________________________________________________
+# Update & install development tools via the system's package manager.
 
 RUN apt-get update --fix-missing && \
-    apt-get install -y ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1 libxml2 libxml2-dev \
-                       libboost-all-dev libnss-wrapper bzip2 curl dos2unix dpkg grep sed make cmake \
-                       automake autoconf autotools-dev libtool git gitk gcc g++ gfortran vim vim-gnome && \
+    apt-get install -y \
+        ca-certificates \
+        libglib2.0-0 \
+        libxext6 \
+        libsm6 \
+        libxrender1 \
+        libxml2 \
+        libxml2-dev \
+        libboost-all-dev \
+        libnss-wrapper \
+        bzip2 \
+        curl \
+        dos2unix \
+        dpkg \
+        grep \
+        sed \
+        make \
+        automake \
+        autoconf \
+        autotools-dev \
+        libtool \
+        git \
+        gitk \
+        gcc \
+        g++ \
+        gfortran \
+        vim \
+        vim-gnome && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+#_______________________________________________________________________________
 # Tini (see https://github.com/krallin/tini)
 
 RUN TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o "/v.*\"" | sed 's:^..\(.*\).$:\1:'` && \
@@ -20,11 +47,15 @@ RUN TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+#_______________________________________________________________________________
 # Add a user
 
-RUN adduser --disabled-password --uid 1001 --gid 0 --gecos "Conda" conda
+RUN adduser --disabled-password --uid 1001 --gid 0 --gecos "Conda" conda && \
+    mkdir -p /home/conda/.ssh && \
+    ssh-keygen -t rsa -b 4096 -C "conda@eumetsat.int" -N "" -f /home/conda/.ssh/id_rsa
 ENV HOME=/home/conda
 
+#_______________________________________________________________________________
 # Install Anaconda (w/o MKL; see https://docs.continuum.io/mkl-optimizations/index)
 
 RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
@@ -35,7 +66,7 @@ RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     bash /tmp/Anaconda2-${ANACONDA_VERSION}.sh -b -p /opt/conda && \
     conda install -y nomkl numpy scipy scikit-learn numexpr && \
     conda remove -y mkl mkl-service && \
-    conda install -y basemap cheetah libnetcdf netcdf4 mysql-python anaconda-client conda-build && \
+    conda install -y basemap cheetah cmake libnetcdf netcdf4 mysql-python anaconda-client conda-build && \
     conda install -c eumetsat eugene=4.20 && \
     conda install -c eumetsat libnetcdf-fortran=4.4.4 && \
     conda update -y --all && \
@@ -53,8 +84,10 @@ RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     chown -R conda /home/conda && \
     chmod -R u+w,g+w /opt/conda && \
     chmod -R u+w,g+w /home/conda && \
+    chmod -R 0600 /home/conda/.ssh/* && \
     rm -f /tmp/Anaconda2-${ANACONDA_VERSION}.sh
 
+#_______________________________________________________________________________
 # Environment variables
 
 # http://bugs.python.org/issue19846
@@ -66,10 +99,13 @@ ENV LD_LIBRARY_PATH /opt/conda/lib:$LD_LIBRARY_PATH
 
 ENV EUGENE_HOME /opt/conda/share/eugene/
 
+#_______________________________________________________________________________
 # Add a notebook profile
+
 RUN mkdir -p -m 0775 /home/conda/.jupyter && \
     echo "c.NotebookApp.ip = '*'" >> /home/conda/.jupyter/jupyter_notebook_config.py
 
+#_______________________________________________________________________________
 # Switch user
 
 USER 1001
