@@ -1,6 +1,10 @@
 # Bash functions to simplify the use of the Anaconda docker image
 # ---------------------------------------------------------------
 
+anabuild(){
+    docker build -t "anaconda:ubuntu-16:04" .
+}
+
 # 1. Run bash
 # -----------
 
