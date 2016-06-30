@@ -99,6 +99,7 @@ ENV PATH .:/opt/conda/bin:$PATH
 ENV LD_LIBRARY_PATH /opt/conda/lib:$LD_LIBRARY_PATH
 
 ENV EUGENE_HOME /opt/conda/share/eugene/
+ENV BUFR_TABLES /opt/conda/share/bufrdc/bufrtables/
 
 #_______________________________________________________________________________
 # Add a notebook profile
