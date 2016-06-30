@@ -2,12 +2,14 @@ Docker image using Anaconda
 ===========================
 
 
-## Introduction
+Introduction
+------------
 
 t.b.w.
 
 
-## Organization of files and directories
+Organization of files and directories
+-------------------------------------
 
 After checking out a working copy (using Git) or unpacking the source archive,
 you will be left with the following directory structure:
@@ -20,13 +22,15 @@ you will be left with the following directory structure:
     └── README.md             ...  This Readme file.
 
 
-## Requirements
+Requirements
+------------
 
  - Resolve external dependencies for building and running YAROS.
  - Resolve external dependencies for building and running GRAS-PPF-SG.
 
 
-## Open questions
+Open questions
+--------------
 
  - What extactly should be part of the Docker image and what should not?
  - What are possible manners of working with the Docker image?
