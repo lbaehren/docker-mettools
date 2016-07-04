@@ -65,15 +65,18 @@ RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     conda install -y nomkl numpy scipy scikit-learn numexpr && \
     conda remove -y mkl mkl-service && \
     conda install -y basemap cheetah cmake netcdf4 mysql-python anaconda-client conda-build && \
-    conda install -c enversion apr-util=1.5.3 && \
+    conda install -c anaconda expat=2.1.0 && \
+    conda install -c conda-forge lapack=3.6.1 && \
     conda install -c eumetsat eugene=4.20 && \
     conda install -c eumetsat libnetcdf-c=4.4.1 && \
     conda install -c eumetsat libnetcdf-cxx4=4.3.0 && \
     conda install -c eumetsat libnetcdf-fortran=4.4.4 && \
     conda install -c eumetsat log4cxx=0.10.0 && \
-    conda install -c eumetsat epsar=1.4 && \
+    conda install -c eumetsat epsar=1.6 && \
     conda install -c eumetsat bufrdc=000405 && \
     conda install -c eumetsat ecmwf_grib_api=1.16.0 && \
+    conda install -c eumetsat fftw3=3.3.4 && \
+    conda install -c eumetsat gsl=2.1 && \
     conda install -c eumetsat ropp-utils-io=8.0 && \
     conda update -y --all && \
     conda clean -y --source-cache --index-cache --tarballs && \
@@ -91,10 +94,6 @@ RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     chmod -R u+w,g+w /opt/conda && \
     chmod -R u+w,g+w /home/conda && \
     rm -f /tmp/Anaconda2-${ANACONDA_VERSION}.sh
-
-# Additional conda packages:
-#
-#  conda install -c conda-forge lapack=3.6.1
 
 #_______________________________________________________________________________
 # Environment variables
