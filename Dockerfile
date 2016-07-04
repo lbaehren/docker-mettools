@@ -67,6 +67,7 @@ RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     conda install -y basemap cheetah cmake netcdf4 mysql-python anaconda-client conda-build && \
     conda install -c anaconda expat=2.1.0 && \
     conda install -c conda-forge lapack=3.6.1 && \
+    conda install -c conda-forge udunits2=2.2.20 && \
     conda install -c eumetsat eugene=4.20 && \
     conda install -c eumetsat libnetcdf-c=4.4.1 && \
     conda install -c eumetsat libnetcdf-cxx4=4.3.0 && \
