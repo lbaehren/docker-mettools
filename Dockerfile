@@ -74,6 +74,7 @@ RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     conda install -c eumetsat epsar=1.4 && \
     conda install -c eumetsat bufrdc=000405 && \
     conda install -c eumetsat ecmwf_grib_api=1.16.0 && \
+    conda install -c eumetsat ropp-utils-io=8.0 && \
     conda update -y --all && \
     conda clean -y --source-cache --index-cache --tarballs && \
     pip install --no-cache-dir alembic && \
