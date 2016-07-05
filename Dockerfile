@@ -64,7 +64,9 @@ RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     bash /tmp/Anaconda2-${ANACONDA_VERSION}.sh -b -p /opt/conda && \
     conda install -y nomkl numpy scipy scikit-learn numexpr && \
     conda remove -y mkl mkl-service && \
-    conda install -y basemap cheetah cmake netcdf4 mysql-python anaconda-client conda-build && \
+    conda install -y basemap cheetah cmake libnetcdf netcdf4 mysql-python anaconda-client conda-build && \
+    conda install -y hdf5=1.8.15.1 && \
+    conda install -y zlib=1.2.8 && \
     conda install -c anaconda expat=2.1.0 && \
     conda install -c conda-forge lapack=3.6.1 && \
     conda install -c eumetsat eugene=4.20 && \
@@ -77,7 +79,7 @@ RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     conda install -c eumetsat ecmwf_grib_api=1.16.0 && \
     conda install -c eumetsat fftw3=3.3.4 && \
     conda install -c eumetsat gsl=2.1 && \
-    conda install -c eumetsat ropp-utils-io=8.0 && \
+    conda install -c eumetsat ropp-eum=8.1 && \
     conda update -y --all && \
     conda clean -y --source-cache --index-cache --tarballs && \
     pip install --no-cache-dir alembic && \
