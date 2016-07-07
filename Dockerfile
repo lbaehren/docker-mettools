@@ -55,6 +55,9 @@ ENV HOME=/home/conda
 
 #_______________________________________________________________________________
 # Install Anaconda (w/o MKL; see https://docs.continuum.io/mkl-optimizations/index)
+# with additional packages and create a default conda environment (created without
+# any specific conda packages which would require root access during runtime, and
+# by using the default anaconda, the eumetsat and the conda-forge channels)
 
 RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     curl -L "https://repo.continuum.io/archive/Anaconda2-${ANACONDA_VERSION}.sh" > /tmp/Anaconda2-${ANACONDA_VERSION}.sh && \
@@ -91,7 +94,8 @@ RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     pip install --no-cache-dir sqlitebck && \
     pip install --no-cache-dir urlgrabber && \
     pip install --no-cache-dir zconfig && \
-    conda create --yes --quiet --offline --clone root -p /home/conda/.conda/envs/default && \
+    conda list --export -n root | egrep -v '^conda' > installed_pkgs && \
+    conda create --yes --quiet -c defaults -c eumetsat -c conda-forge -p /home/conda/.conda/envs/default --file installed_pkgs && \
     chown -R conda /opt/conda && \
     chown -R conda /home/conda && \
     chmod -R u+w,g+w /opt/conda && \
