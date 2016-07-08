@@ -60,4 +60,9 @@ you will be left with the following directory structure:
     ├── Dockerfile            ...  Docker file used for building the Docker image.
     └── README.md             ...  This Readme file.
 
+License
+-------
+
+TBD
+
 
