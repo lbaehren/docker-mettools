@@ -5,13 +5,14 @@ Docker image using Anaconda
 Introduction
 ------------
 
-This Dockerfile provides the recipe to build an environment where the prototype Yaros ()
-and the operational GRAS-PPF () can be developed, build, installed and run.
+This Dockerfile provides the recipe to build an environment where the prototype
+YAROS (Yet Another Radio Occultation Software) and the operational GRAS-PPF
+(GRAS Product Processing Facility) can be developed, build, installed and run
+(it resamples the mettools environment used within EUMETSAT).
 
-The environment is given within the anaconda framework which manages all the additional
-required dependencies which are not installed via the system package manager.
-
-More details on the dependancy management can be found in docs/02_build.md.
+The environment is given within an Anaconda framework which manages all the
+additional required dependencies which are not installed via the system package
+manager. More details on the dependancy management can be found in docs/02_build.md.
 
 
 Principal Steps
@@ -19,14 +20,23 @@ Principal Steps
 
 In order to be able to use this environment the following steps are required:
 
- - Install docker on your machine
+ - Install Docker on your machine (see docs/01_install.md)
 
- - Download this docker image:
+ - Download the pre-build Docker image from the Docker hub (alternatively,
+   build it from this repository yourself, see docs/02_build.md):
+   ~~~~
+   docker pull marq/anaconda
+   ~~~~
 
+ - Run the Docker image in a container (see docs/03_run.md for full examples):
+   ~~~~
+   docker run -it -u $(id -u) marq/anaconda
+   ~~~~
 
-In order to build the docker image from this dockerfile, all the 
-
-
+ - Work in the Anaconda environment which contains all the dependencies:
+   ~~~~
+   source activate /home/conda/.conda/envs/default
+   ~~~~
 
 
 Organization of files and directories
@@ -35,24 +45,16 @@ Organization of files and directories
 After checking out a working copy (using Git) or unpacking the source archive,
 you will be left with the following directory structure:
 
-    .
+    │
     ├── anaconda.bash         ...  Collection of helper functions to work with Docker image.
     ├── assets
     │   └── entrypoint.sh     ...  Script to define entry point into the Docker image.
-    ├── Dockerfile            ...  Docker file used for building Docker image.
+    ├── docs
+    │   ├── 01_install.md     ...  Instruction how to install and start docker on openSUSE.
+    │   ├── 02_build.md       ...  Instruction on how to build the Docker image and the required Anaconda packages.
+    │   ├── 03_run.md         ...  Full examples on how to build, install and run YAROS and GRAS-PPF using this Docker image.
+    │   └── 04_help.md        ...  Usefull Docker commands and short tutorial.
+    ├── Dockerfile            ...  Docker file used for building the Docker image.
     └── README.md             ...  This Readme file.
 
 
-Requirements
-------------
-
- - Resolve external dependencies for building and running YAROS.
- - Resolve external dependencies for building and running GRAS-PPF-SG.
-
-
-Open questions
---------------
-
- - What extactly should be part of the Docker image and what should not?
- - What are possible manners of working with the Docker image?
- - Naming scheme for tagging the image?
