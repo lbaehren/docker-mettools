@@ -1,3 +1,14 @@
+Building the Anaconda packages and the Docker image
+===================================================
+
+Overview
+--------
+
+This readme file covers the following topics:
+
+ - Building the required dependencies as anaconda packages
+ - Build the Docker image which requires the anaconda packages
+ - Dependency management and naming convention
 
 
 
