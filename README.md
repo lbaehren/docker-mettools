@@ -5,7 +5,28 @@ Docker image using Anaconda
 Introduction
 ------------
 
-t.b.w.
+This Dockerfile provides the recipe to build an environment where the prototype Yaros ()
+and the operational GRAS-PPF () can be developed, build, installed and run.
+
+The environment is given within the anaconda framework which manages all the additional
+required dependencies which are not installed via the system package manager.
+
+More details on the dependancy management can be found in docs/02_build.md.
+
+
+Principal Steps
+---------------
+
+In order to be able to use this environment the following steps are required:
+
+ - Install docker on your machine
+
+ - Download this docker image:
+
+
+In order to build the docker image from this dockerfile, all the 
+
+
 
 
 Organization of files and directories

@@ -57,7 +57,8 @@ ENV HOME=/home/conda
 # Install Anaconda (w/o MKL; see https://docs.continuum.io/mkl-optimizations/index)
 # with additional packages and create a default conda environment (created without
 # any specific conda packages which would require root access during runtime, and
-# by using the default anaconda, the eumetsat and the conda-forge channels)
+# by using the default anaconda, the eumetsat and the conda-forge channels). All
+# pip installed packages are only available in the default environment.
 
 RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     curl -L "https://repo.continuum.io/archive/Anaconda2-${ANACONDA_VERSION}.sh" > /tmp/Anaconda2-${ANACONDA_VERSION}.sh && \
