@@ -1,8 +1,8 @@
 Useful Docker commands
 ======================
 
-... for memory clean-up
------------------------
+Memory clean-up
+---------------
 
 Container cleanup (first stops all running containers and then removes them):
 
@@ -21,7 +21,9 @@ docker rm $(docker ps -a -q)
 docker rmi $(docker images -a -q)
 ~~~~
 
-NOTE: It will remove all images from all users on this machine! In order to remove individual images:
+WARNING: It will remove all images from all users on this machine!
+
+In order to remove individual images, do the following:
 
 ~~~~
 docker rmi <image-id>
@@ -46,3 +48,19 @@ docker volume ls
 docker volume ls -f dangling=true
 docker volume rm <volume-id>
 ~~~~
+
+
+Short Docker tutorial
+---------------------
+
+
+Before starting, make sure you have the following accounts
+with the required access rights:
+
+ - Docker Cloud account
+
+
+TBD
+
+
+
