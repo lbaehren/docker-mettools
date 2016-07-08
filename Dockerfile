@@ -86,16 +86,16 @@ RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
     conda install -c eumetsat ropp-eum=8.1 && \
     conda update -y --all && \
     conda clean -y --source-cache --index-cache --tarballs && \
-    pip install --no-cache-dir alembic && \
-    pip install --no-cache-dir conda-workon && \
-    pip install --no-cache-dir egenix-mx-base && \
-    pip install --no-cache-dir ftputil && \
-    pip install --no-cache-dir nose-timer && \
-    pip install --no-cache-dir sqlitebck && \
-    pip install --no-cache-dir urlgrabber && \
-    pip install --no-cache-dir zconfig && \
     conda list --export -n root | egrep -v '^conda' > installed_pkgs && \
     conda create --yes --quiet -c defaults -c eumetsat -c conda-forge -p /home/conda/.conda/envs/default --file installed_pkgs && \
+    bash -c "source activate /home/conda/.conda/envs/default && \
+       pip install --no-cache-dir alembic && \
+       pip install --no-cache-dir egenix-mx-base && \
+       pip install --no-cache-dir ftputil && \
+       pip install --no-cache-dir nose-timer && \
+       pip install --no-cache-dir --global-option=build_ext --global-option="-I/home/conda/.conda/envs/default/include" sqlitebck && \
+       pip install --no-cache-dir urlgrabber && \
+       pip install --no-cache-dir zconfig" && \
     chown -R conda /opt/conda && \
     chown -R conda /home/conda && \
     chmod -R u+w,g+w /opt/conda && \
