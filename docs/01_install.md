@@ -1,7 +1,7 @@
 Installing Docker on openSUSE
 =============================
 
-Stating with openSUSE 13.2, `docker` rpms are available from the standard repositories,
+Starting with openSUSE 13.2, `docker` rpms are available from the standard repositories,
 but typically not in the most recent version. Current versions of the docker engine as
 well as additional tools like `docker-compose`, `docker-swarm` and `docker-machine` are
 thus available through a dedicated openSUSE build project:

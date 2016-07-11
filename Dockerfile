@@ -53,26 +53,17 @@ RUN adduser --disabled-password --uid 1001 --gid 0 --gecos "Conda" conda
 ENV HOME=/home/conda
 
 #_______________________________________________________________________________
-# Install Anaconda (w/o MKL; see https://docs.continuum.io/mkl-optimizations/index)
-# with additional packages and create a default conda environment (created without
-# any specific conda packages which would require root access during runtime, and
-# by using the default anaconda, the eumetsat and the conda-forge channels). All
-# pip installed packages are only available in the default environment.
+# Install Miniconda and create a default environment with all the required packages needed to
+# develop YAROS and GRAS-PPF (w/o MKL; see https://docs.continuum.io/mkl-optimizations/index).
 
-RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
-    curl -L "https://repo.continuum.io/archive/Anaconda2-${ANACONDA_VERSION}.sh" > /tmp/Anaconda2-${ANACONDA_VERSION}.sh && \
+RUN MINICONDA_VERSION=latest-Linux-x86_64 && \
+    curl -L "https://repo.continuum.io/miniconda/Miniconda2-${MINICONDA_VERSION}.sh" > /tmp/Miniconda2-${MINICONDA_VERSION}.sh && \
     export PATH=/opt/conda/bin:$PATH && \
     export CPPFLAGS=-I/opt/conda/include && \
     export LDFLAGS=-L/opt/conda/lib && \
-    bash /tmp/Anaconda2-${ANACONDA_VERSION}.sh -b -p /opt/conda && \
-    conda install -y nomkl numpy scipy scikit-learn numexpr && \
-    conda remove -y mkl mkl-service && \
-    conda install -y basemap cheetah cmake netcdf4 mysql-python anaconda-client conda-build && \
-    conda install -c eumetsat mettools=3.0 && \
-    conda update -y --all && \
-    conda clean -y --source-cache --index-cache --tarballs && \
-    conda list --export -n root | egrep -v '^conda' > installed_pkgs && \
-    conda create --yes --quiet -c defaults -c eumetsat -c conda-forge -p /home/conda/.conda/envs/default --file installed_pkgs && \
+    bash /tmp/Miniconda2-${MINICONDA_VERSION}.sh -b -p /opt/conda && \
+    conda install -y conda-build && \
+    conda create --yes -c defaults -c eumetsat -c conda-forge -p /home/conda/.conda/envs/default mettools-base=3.0 mettools=3.0 && \
     bash -c "source activate /home/conda/.conda/envs/default && \
        pip install --no-cache-dir alembic && \
        pip install --no-cache-dir egenix-mx-base && \
@@ -81,11 +72,12 @@ RUN ANACONDA_VERSION=4.0.0-Linux-x86_64 && \
        pip install --no-cache-dir --global-option=build_ext --global-option="-I/home/conda/.conda/envs/default/include" sqlitebck && \
        pip install --no-cache-dir urlgrabber && \
        pip install --no-cache-dir zconfig" && \
+    conda clean -y --source-cache --index-cache --tarballs && \
     chown -R conda /opt/conda && \
     chown -R conda /home/conda && \
     chmod -R u+w,g+w /opt/conda && \
     chmod -R u+w,g+w /home/conda && \
-    rm -f /tmp/Anaconda2-${ANACONDA_VERSION}.sh
+    rm -f /tmp/Miniconda2-${MINICONDA_VERSION}.sh
 
 #_______________________________________________________________________________
 # Environment variables
@@ -97,8 +89,8 @@ ENV LANG C.UTF-8
 ENV PATH .:/opt/conda/bin:$PATH
 ENV LD_LIBRARY_PATH /opt/conda/lib:$LD_LIBRARY_PATH
 
-ENV EUGENE_HOME /opt/conda/share/eugene/
-ENV BUFR_TABLES /opt/conda/share/bufrdc/bufrtables/
+ENV EUGENE_HOME /home/conda/.conda/envs/default/share/eugene/
+ENV BUFR_TABLES /home/conda/.conda/envs/default/share/bufrdc/bufrtables/
 
 #_______________________________________________________________________________
 # Add a notebook profile

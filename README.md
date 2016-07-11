@@ -18,17 +18,17 @@ manager. More details on the dependency management can be found in `docs/02_buil
 Principal Steps
 ---------------
 
-In order to be able to use this environment the following steps are required:
+In order to be able to use this environment, the following steps are required:
 
  - Install Docker on your machine (see `docs/01_install.md`)
 
- - Download the pre-build Docker image from the Docker hub (alternatively,
+ - Download the pre-build Docker image from Docker hub (alternatively,
    build it from this repository yourself, see `docs/02_build.md`):
    ~~~~
    docker pull marq/anaconda
    ~~~~
 
- - Run the Docker image in a container (see `docs/03_run.md` for a full example):
+ - Run the Docker image (see `docs/03_run.md` for a full example):
    ~~~~
    docker run -it -u $(id -u) marq/anaconda
    ~~~~
@@ -51,10 +51,10 @@ you will be left with the following directory structure:
     │
     ├── anaconda.bash         ...  Collection of helper functions to work with Docker image.
     ├── assets
-    │   └── entrypoint.sh     ...  Script to define entry point into the Docker image.
+    │   └── entrypoint.sh     ...  Script to define the entry point into the Docker image.
     ├── docs
-    │   ├── 01_install.md     ...  Instruction how to install and start docker on openSUSE.
-    │   ├── 02_build.md       ...  Instruction on how to build the Docker image and the required Anaconda packages.
+    │   ├── 01_install.md     ...  Instructions on how to install and start docker on openSUSE.
+    │   ├── 02_build.md       ...  Instructions on how to build the Docker image and the required Anaconda packages.
     │   ├── 03_run.md         ...  Full examples on how to build, install and run YAROS and GRAS-PPF using this Docker image.
     │   └── 04_help.md        ...  Useful Docker commands and short tutorial.
     ├── Dockerfile            ...  Docker file used for building the Docker image.
