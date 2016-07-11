@@ -43,7 +43,7 @@ if [ x"$USER_ID" != x"0" -a x"$USER_ID" != x"1001" ]; then
     # running the wrapped passwd file is used.
     export NSS_WRAPPER_PASSWD
     export NSS_WRAPPER_GROUP
-    LD_PRELOAD=/usr/lib/libnss_wrapper.so
+    LD_PRELOAD=/opt/conda/lib/libnss_wrapper.so
     export LD_PRELOAD
 fi
 
