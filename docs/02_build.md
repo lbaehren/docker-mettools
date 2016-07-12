@@ -14,7 +14,7 @@ with the required access rights:
 
  - `EUMETSAT GitLab` account with read access to `ro/anaconda-recipes`
  - `Anaconda cloud` account with write access to the `EUMETSAT channel`
- - `Docker hub` account with acces to `marq/anaconda` (admin only)
+ - `Docker hub` account with access to `marq/anaconda` (admin only)
 
 
 Building the required dependencies as Anaconda packages
@@ -27,7 +27,7 @@ manager. These packages need to be build from source.
 
 The way these sources are managed here is by providing them as
 ancaonda packages. Each source is build with `conda build` and
-the resulting installable package is uplaoded to the Anaconda
+the resulting installable package is uploaded to the Anaconda
 cloud from where it can be downloaded later for the docker
 image build.
 
