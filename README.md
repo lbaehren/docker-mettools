@@ -38,8 +38,7 @@ In order to be able to use this environment, the following steps are required:
    source activate /home/conda/.conda/envs/default
    ~~~~
 
-A short tutorial on how to use Docker including a list of useful Docker
-commands can be found under `docs/04_help`.
+A list of useful Docker and Anacaonda commands can be found under `docs/04_help`.
 
 
 Organization of files and directories
@@ -56,7 +55,7 @@ you will be left with the following directory structure:
     │   ├── 01_install.md     ...  Instructions on how to install and start docker on openSUSE.
     │   ├── 02_build.md       ...  Instructions on how to build the Docker image and the required Anaconda packages.
     │   ├── 03_run.md         ...  Full examples on how to build, install and run YAROS and GRAS-PPF using this Docker image.
-    │   └── 04_help.md        ...  Useful Docker commands and short tutorial.
+    │   └── 04_help.md        ...  Useful Docker and Anaconda commands.
     ├── Dockerfile            ...  Docker file used for building the Docker image.
     └── README.md             ...  This Readme file.
 
