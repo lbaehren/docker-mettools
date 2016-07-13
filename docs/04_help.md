@@ -11,9 +11,9 @@ This help file consists of the following topics:
  - Useful Anaconda commands
 
 Related websites:
- - [EUMETSATs Dockerfile source repository](https://github.com/cmarquardt/docker-anaconda)
- - [EUMETSATs Docker image hub](https://hub.docker.com/r/marq/anaconda/)
- - [EUMETSATs Anaconda package cloud](https://anaconda.org/Eumetsat/packages)
+ - [EUMETSATs Docker image hub (marq/anaconda)](https://hub.docker.com/r/marq/anaconda/)
+ - [EUMETSATs Anaconda package cloud (EUMETSAT)](https://anaconda.org/Eumetsat/packages)
+ - [EUMETSATs GitHub Dockerfile source repository (cmarquardt/docker-anaconda)](https://github.com/cmarquardt/docker-anaconda)
  - [EUMETSATs GitLab source code server (Anaconda recipes, YAROS, GRAS-PPF)](https://gitlab.eumetsat.int/)
 
 Useful Docker commands

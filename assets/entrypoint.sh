@@ -47,7 +47,12 @@ if [ x"$USER_ID" != x"0" -a x"$USER_ID" != x"1001" ]; then
     export LD_PRELOAD
 fi
 
-# 2. Run tini
+# 2. Define default conda environment
+# -----------------------------------
+
+source activate /home/conda/.conda/envs/default
+
+# 3. Run tini
 # -----------
 
 exec tini -- "$@"

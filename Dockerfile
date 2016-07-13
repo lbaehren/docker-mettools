@@ -105,6 +105,7 @@ RUN mkdir -p -m 0775 /home/conda/.jupyter && \
 USER 1001
 WORKDIR /home/conda
 
+#_______________________________________________________________________________
 # Add an entrypoint script
 
 COPY assets/entrypoint.sh /sbin
