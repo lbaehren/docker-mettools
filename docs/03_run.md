@@ -31,7 +31,7 @@ the right git branch:
 cd development
 git clone git@gitlab.eumetsat.int:ro/gras-ppf.git
 cd gras-ppf
-git checkout origin/feature/lbaehren_cmake_build
+git checkout feature/lbaehren_cmake_build
 git submodule init
 git submodule update
 cd src/napeos
@@ -73,7 +73,7 @@ YAROS use example
 
 Start the Docker image in a Docker container as described in the previous
 step and activate the `default` conda environment which contains all the
-required dependencies.
+required dependencies (this is usually already set).
 ~~~~
 source activate /home/conda/.conda/envs/default
 ~~~~

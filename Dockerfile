@@ -81,7 +81,7 @@ RUN MINICONDA_VERSION=latest-Linux-x86_64 && \
     rm -f /tmp/Miniconda2-${MINICONDA_VERSION}.sh
 
 #_______________________________________________________________________________
-# Environment variables
+# Set environment variables
 
 # http://bugs.python.org/issue19846
 # > At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*, and that's not OK.
@@ -106,10 +106,12 @@ USER 1001
 WORKDIR /home/conda
 
 #_______________________________________________________________________________
-# Add an entrypoint script
+# Add an entrypoint script and Anaconda global config file
 
 COPY assets/entrypoint.sh /sbin
+COPY assets/.condarc /opt/conda
 
+#_______________________________________________________________________________
 # Entrypoint and default command
 
 ENTRYPOINT [ "/sbin/entrypoint.sh" ]
