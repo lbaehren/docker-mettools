@@ -2,8 +2,9 @@ FROM ubuntu:16.04
 
 MAINTAINER christian Marquardt <christian@marquardt.sc>
 
+
 #_______________________________________________________________________________
-# Update & install development tools via the system's package manager.
+# Update & install development tools via the system's package manager:
 
 RUN apt-get update --fix-missing && \
     apt-get install -y \
@@ -36,8 +37,9 @@ RUN apt-get update --fix-missing && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+
 #_______________________________________________________________________________
-# Tini (see https://github.com/krallin/tini)
+# Install Tini (see https://github.com/krallin/tini):
 
 RUN TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o "/v.*\"" | sed 's:^..\(.*\).$:\1:'` && \
     curl -L "https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini_${TINI_VERSION}.deb" > tini.deb && \
@@ -46,15 +48,18 @@ RUN TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+
 #_______________________________________________________________________________
-# Add a user
+# Add a user:
 
 RUN adduser --disabled-password --uid 1001 --gid 0 --gecos "Conda" conda
 ENV HOME=/home/conda
 
+
 #_______________________________________________________________________________
-# Install Miniconda and create a default environment with all the required packages needed to
-# develop YAROS and GRAS-PPF (w/o MKL; see https://docs.continuum.io/mkl-optimizations/index).
+# Install Miniconda and create a default environment with all the required
+# packages needed to build and run YAROS and GRAS-PPF (w/o MKL; see
+# https://docs.continuum.io/mkl-optimizations/index):
 
 RUN MINICONDA_VERSION=latest-Linux-x86_64 && \
     curl -L "https://repo.continuum.io/miniconda/Miniconda2-${MINICONDA_VERSION}.sh" > /tmp/Miniconda2-${MINICONDA_VERSION}.sh && \
@@ -74,17 +79,16 @@ RUN MINICONDA_VERSION=latest-Linux-x86_64 && \
        pip install --no-cache-dir urlgrabber && \
        pip install --no-cache-dir zconfig" && \
     conda clean -y --source-cache --index-cache --tarballs && \
-    chown -R conda /opt/conda && \
     chown -R conda /home/conda && \
-    chmod -R u+w,g+w /opt/conda && \
     chmod -R u+w,g+w /home/conda && \
     rm -f /tmp/Miniconda2-${MINICONDA_VERSION}.sh
 
-#_______________________________________________________________________________
-# Set environment variables
 
-# http://bugs.python.org/issue19846
-# > At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*, and that's not OK.
+#_______________________________________________________________________________
+# Set environment variables:
+
+# At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*,
+# and that's not OK (see: http://bugs.python.org/issue19846).
 ENV LANG C.UTF-8
 
 ENV PATH .:/opt/conda/bin:$PATH
@@ -93,26 +97,39 @@ ENV LD_LIBRARY_PATH /opt/conda/lib:$LD_LIBRARY_PATH
 ENV EUGENE_HOME /home/conda/.conda/envs/default/share/eugene/
 ENV BUFR_TABLES /home/conda/.conda/envs/default/share/bufrdc/bufrtables/
 
+
 #_______________________________________________________________________________
-# Add a notebook profile
+# Add a notebook profile:
 
 RUN mkdir -p -m 0775 /home/conda/.jupyter && \
     echo "c.NotebookApp.ip = '*'" >> /home/conda/.jupyter/jupyter_notebook_config.py
 
+
 #_______________________________________________________________________________
-# Switch user
+# Switch user:
 
 USER 1001
 WORKDIR /home/conda
 
+
 #_______________________________________________________________________________
-# Add an entrypoint script and Anaconda global config file
+# Ensure that our default conda environment is always activated when starting a
+# new bash shell and that the name of the environment is shown as part of the prompt:
+
+RUN bash -c "echo -e '\n# activate default Anaconda environment' >> ~/.bashrc" && \
+    bash -c "echo -e 'source activate default\n' >> ~/.bashrc"
+
+
+#_______________________________________________________________________________
+# Add an entrypoint script and an Anaconda global config file:
 
 COPY assets/entrypoint.sh /sbin
 COPY assets/.condarc /opt/conda
 
+
 #_______________________________________________________________________________
-# Entrypoint and default command
+# Entrypoint and default command:
 
 ENTRYPOINT [ "/sbin/entrypoint.sh" ]
 CMD [ "/bin/bash" ]
+

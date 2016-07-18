@@ -47,12 +47,20 @@ if [ x"$USER_ID" != x"0" -a x"$USER_ID" != x"1001" ]; then
     export LD_PRELOAD
 fi
 
+
 # 2. Define default conda environment
 # -----------------------------------
 
-source activate /home/conda/.conda/envs/default
+# Set PS1 variable so that the prompt can be correctly restored when
+# deactivating the conda environment activated below.
+export PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$ "
+
+# Activate our default conda environment.
+source activate default
+
 
 # 3. Run tini
 # -----------
 
 exec tini -- "$@"
+
