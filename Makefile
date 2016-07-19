@@ -19,6 +19,9 @@ TIMESTAMP=`date +%Y%m%d`
 DOCKER_BUILD=docker build --rm=true --force-rm
 VERSION_OPENSUSE="13.2"
 
+#_______________________________________________________________________________
+#  Help message with overview of available targets
+
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... help                    - Display this help"
@@ -48,7 +51,7 @@ clean-images:
 	for IMG in `docker images -q` ; { docker rmi -f $$IMG ; } ;
 
 #_______________________________________________________________________________
-# Build Docker image(s)
+#  Build Docker image(s)
 
 build-all: build-mettools-ubuntu build-mettools-opensuse
 
