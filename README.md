@@ -47,17 +47,25 @@ Organization of files and directories
 After checking out a working copy (using Git) or unpacking the source archive,
 you will be left with the following directory structure:
 
-    │
-    ├── anaconda.bash         ...  Collection of helper functions to work with Docker image.
+    .
+    ├── anaconda.bash       ...  Collection of helper functions to work with Docker image.
     ├── assets
-    │   └── entrypoint.sh     ...  Script to define the entry point into the Docker image.
+    │   └── entrypoint.sh   ...  Script to define the entry point into the Docker image.
     ├── docs
-    │   ├── 01_install.md     ...  Instructions on how to install and start docker on openSUSE.
-    │   ├── 02_build.md       ...  Instructions on how to build the Docker image and the required Anaconda packages.
-    │   ├── 03_run.md         ...  Full examples on how to build, install and run YAROS and GRAS-PPF using this Docker image.
-    │   └── 04_help.md        ...  Useful Docker and Anaconda commands.
-    ├── Dockerfile            ...  Docker file used for building the Docker image.
-    └── README.md             ...  This Readme file.
+    │   ├── 01_install.md   ...  Instructions on how to install and start docker on openSUSE.
+    │   ├── 02_build.md     ...  Instructions on how to build the Docker image and the required Anaconda packages.
+    │   ├── 03_run.md       ...  Full examples on how to build, install and run YAROS and GRAS-PPF using this Docker image.
+    │   └── 04_help.md      ...  Useful Docker and Anaconda commands.
+    ├── Makefile            ...  Tasks for building and running Docker images
+    ├── README.md           ...  This Readme file.
+    ├── opensuse
+    │   └── 13.2
+    │       └── Dockerfile
+    └── ubuntu
+        └── 16.04
+            └── Dockerfile
+
+
 
 License
 -------
