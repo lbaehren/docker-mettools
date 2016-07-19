@@ -69,7 +69,7 @@ RUN MINICONDA_VERSION=latest-Linux-x86_64 && \
     bash /tmp/Miniconda2-${MINICONDA_VERSION}.sh -b -p /opt/conda && \
     conda install -y conda-build && \
     conda install -y -c eumetsat nss_wrapper && \
-    conda create  -y -c defaults -c eumetsat -c conda-forge -p /home/conda/.conda/envs/default mettools-base=3.0 mettools=3.0 && \
+    conda create  -y -c defaults -c eumetsat -c conda-forge -p /home/conda/.conda/envs/default mettools-base=3.0 mettools-ro=3.0 && \
     bash -c "source activate /home/conda/.conda/envs/default && \
        pip install --no-cache-dir alembic && \
        pip install --no-cache-dir egenix-mx-base && \
