@@ -64,6 +64,7 @@ build-mettools-opensuse:
 
 build-mettools-ubuntu:
 	${DOCKER_BUILD} -f ubuntu/16.04/Dockerfile -t "mettools:ubuntu-16.04" .
+	${DOCKER_BUILD} -f ubuntu/14.04/Dockerfile -t "mettools:ubuntu-14.04" .
 
 #_______________________________________________________________________________
 #  Run Docker images
