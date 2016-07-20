@@ -17,7 +17,6 @@ BASEDIR=`pwd`/..
 USERID=`id -u`
 TIMESTAMP=`date +%Y%m%d`
 DOCKER_BUILD=docker build --rm=true --force-rm
-VERSION_OPENSUSE="13.2"
 
 #_______________________________________________________________________________
 #  Help message with overview of available targets
@@ -30,9 +29,9 @@ help:
 	@echo "... clean-volumes           - Clean up Docker containers"
 	@echo "... build-all               - Build all Docker images"
 	@echo "... build-mettools-ubuntu   - Build Mettools Docker using Ubuntu 16.04 with Anaconda"
-	@echo "... build-mettools-opensuse - Build Mettools Docker using OpenSuSE ${VERSION_OPENSUSE} with Anaconda"
+	@echo "... build-mettools-opensuse - Build Mettools Docker using OpenSuSE 13.2 with Anaconda"
 	@echo "... run-mettools-ubuntu     - Run Mettools image based on Ubuntu 16.04 and Anaconda"
-	@echo "... run-mettools-opensuse   - Run Mettools image based on OpenSuSE ${VERSION_OPENSUSE} and Anaconda"
+	@echo "... run-mettools-opensuse   - Run Mettools image based on OpenSuSE 13.2 and Anaconda"
 
 #_______________________________________________________________________________
 #  Clean-up : keep in mind that Docker will keep quite a few data on disk,
@@ -58,18 +57,18 @@ build-all: build-mettools-ubuntu build-mettools-opensuse
 # ... based on OpenSuSE 13.2
 
 build-mettools-opensuse:
-	${DOCKER_BUILD} -f opensuse/${VERSION_OPENSUSE}/Dockerfile -t "mettools:opensuse-${VERSION_OPENSUSE}" .
+	${DOCKER_BUILD} -f opensuse/13.2/Dockerfile -t "mettools:3.0-opensuse1302" .
 
 # ... based on Ubuntu 16.04
 
 build-mettools-ubuntu:
-	${DOCKER_BUILD} -f ubuntu/16.04/Dockerfile -t "mettools:ubuntu-16.04" .
+	${DOCKER_BUILD} -f ubuntu/16.04/Dockerfile -t "mettools:3.0-ubuntu1604" .
 
 #_______________________________________________________________________________
 #  Run Docker images
 
 run-mettools-opensuse:
-	docker run -it -u ${USERID} -v ${BASEDIR}:/home/conda/work "mettools:opensuse-${VERSION_OPENSUSE}"
+	docker run -it -u ${USERID} -v ${BASEDIR}:/home/conda/work "mettools:3.0-opensuse1302"
 
 run-mettools-ubuntu:
-	docker run -it -u ${USERID} -v ${BASEDIR}:/home/conda/work "mettools:ubuntu-16.04"
+	docker run -it -u ${USERID} -v ${BASEDIR}:/home/conda/work "mettools:3.0-ubuntu1604"
