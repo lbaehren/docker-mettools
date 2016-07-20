@@ -29,10 +29,11 @@ help:
 	@echo "... clean-images            - Clean up Docker images"
 	@echo "... clean-volumes           - Clean up Docker containers"
 	@echo "... build-all               - Build all Docker images"
-	@echo "... build-mettools-ubuntu   - Build Mettools Docker using Ubuntu 16.04 with Anaconda"
 	@echo "... build-mettools-opensuse - Build Mettools Docker using OpenSuSE ${VERSION_OPENSUSE} with Anaconda"
-	@echo "... run-mettools-ubuntu     - Run Mettools image based on Ubuntu 16.04 and Anaconda"
+	@echo "... build-mettools-ubuntu   - Build Mettools Docker using Ubuntu 16.04 with Anaconda"
 	@echo "... run-mettools-opensuse   - Run Mettools image based on OpenSuSE ${VERSION_OPENSUSE} and Anaconda"
+	@echo "... run-mettools-ubuntu1604 - Run Mettools image based on Ubuntu 16.04 and Anaconda"
+	@echo "... run-mettools-ubuntu1404 - Run Mettools image based on Ubuntu 14.04 and Anaconda"
 
 #_______________________________________________________________________________
 #  Clean-up : keep in mind that Docker will keep quite a few data on disk,
@@ -72,5 +73,8 @@ build-mettools-ubuntu:
 run-mettools-opensuse:
 	docker run -it -u ${USERID} -v ${BASEDIR}:/home/conda/work "mettools:opensuse-${VERSION_OPENSUSE}"
 
-run-mettools-ubuntu:
+run-mettools-ubuntu1604:
 	docker run -it -u ${USERID} -v ${BASEDIR}:/home/conda/work "mettools:ubuntu-16.04"
+
+run-mettools-ubuntu1404:
+	docker run -it -u ${USERID} -v ${BASEDIR}:/home/conda/work "mettools:ubuntu-14.04"
