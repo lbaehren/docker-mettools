@@ -138,8 +138,8 @@ RUN bash -c "echo -e '\n# activate default Anaconda environment' >> ~/.bashrc" &
 #_______________________________________________________________________________
 # Add an entrypoint script and an Anaconda global config file:
 
-COPY assets/entrypoint.sh /sbin
-COPY assets/.condarc /opt/conda
+COPY ../../assets/entrypoint.sh /sbin
+COPY ../../assets/.condarc /opt/conda
 
 
 #_______________________________________________________________________________
