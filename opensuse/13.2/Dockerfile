@@ -59,7 +59,7 @@ RUN TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o
 # Add a user
 
 RUN useradd --uid 1001 --create-home --gid 0 --comment "Conda" conda
-ENV HOME=/home/conda
+ENV HOME /home/conda
 
 #_______________________________________________________________________________
 # Install Miniconda and create a default environment with all the required
@@ -97,7 +97,7 @@ RUN MINICONDA_VERSION=latest-Linux-x86_64 && \
 ENV LANG C.UTF-8
 
 ENV PATH .:/opt/conda/bin:$PATH
-ENV LD_LIBRARY_PATH /opt/conda/lib:$LD_LIBRARY_PATH
+ENV LD_LIBRARY_PATH /home/conda/.conda/envs/default/lib:/opt/conda/lib:$LD_LIBRARY_PATH
 
 ENV EUGENE_HOME /home/conda/.conda/envs/default/share/eugene/
 ENV BUFR_TABLES /home/conda/.conda/envs/default/share/bufrdc/bufrtables/
