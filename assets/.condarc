@@ -1,3 +1,0 @@
-envs_dirs:
- - ~/.conda/envs
- - /opt/conda/envs
