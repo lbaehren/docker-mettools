@@ -31,6 +31,7 @@ RUN apt-get update --fix-missing && \
         libxml2 \
         libxml2-dev \
         libboost-all-dev \
+        libaio1 \
         bzip2 \
         curl \
         dos2unix \

@@ -44,6 +44,7 @@ RUN zypper --non-interactive install -t pattern devel_C_C++ ; \
         libxerces-c-devel \
         libxml2 \
         libxml2-devel \
+        libaio1 \
         sed \
         sqlite3-devel
 
