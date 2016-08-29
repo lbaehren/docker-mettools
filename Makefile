@@ -28,10 +28,13 @@ help:
 	@echo "... clean-images            - Clean up Docker images"
 	@echo "... clean-volumes           - Clean up Docker containers"
 	@echo "... build-all               - Build all Docker images"
+	@echo "... build-mettools-ci       - Build Mettools Docker image used form testing and CI"
 	@echo "... build-mettools-ubuntu   - Build Mettools Docker using Ubuntu 16.04 with Anaconda"
 	@echo "... build-mettools-opensuse - Build Mettools Docker using OpenSuSE 13.2 with Anaconda"
+	@echo "... run-mettools-ci         - Run Mettools Docker image used form testing and CI"
 	@echo "... run-mettools-ubuntu     - Run Mettools image based on Ubuntu 16.04 and Anaconda"
 	@echo "... run-mettools-opensuse   - Run Mettools image based on OpenSuSE 13.2 and Anaconda"
+	@echo "... run-opensuse            - Run Docker image for OpenSuSE 13.2"
 
 #_______________________________________________________________________________
 #  Clean-up : keep in mind that Docker will keep quite a few data on disk,
@@ -52,7 +55,12 @@ clean-images:
 #_______________________________________________________________________________
 #  Build Docker image(s)
 
-build-all: build-mettools-ubuntu build-mettools-opensuse
+build-all: build-mettools-ci build-mettools-ubuntu build-mettools-opensuse
+
+# ... used for continuous integration
+
+build-mettools-ci:
+	cd opensuse/13.2-ci && ${DOCKER_BUILD} -t "mettools:3.0-ci" .
 
 # ... based on OpenSuSE 13.2
 
@@ -66,6 +74,15 @@ build-mettools-ubuntu:
 
 #_______________________________________________________________________________
 #  Run Docker images
+
+run-opensuse:
+	docker run -it -v ${BASEDIR}:/home/conda/work "opensuse:13.2" /bin/bash
+
+run-ubuntu:
+	docker run -it -v ${BASEDIR}:/home/conda/work "ubuntu:16.04" /bin/bash
+
+run-mettools-ci:
+	docker run -it -u ${USERID} -v ${BASEDIR}:/home/mettools/work "mettools:3.0-ci"
 
 run-mettools-opensuse:
 	docker run -it -u ${USERID} -v ${BASEDIR}:/home/conda/work "mettools:3.0-opensuse1302"
