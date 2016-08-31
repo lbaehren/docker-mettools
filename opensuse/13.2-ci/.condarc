@@ -1,0 +1,5 @@
+envs_dirs:
+ - ~/sw/linux-64/conda/3.0/envs
+ - ~/sw/linux-32/conda/3.0/envs
+ - ~/sw/linux-64/conda/latest/envs
+ - ~/sw/linux-32/conda/latest/envs

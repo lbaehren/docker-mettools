@@ -97,10 +97,10 @@ WORKDIR /home/mettools
 # Add an entrypoint script and an Anaconda global config file:
 
 COPY entrypoint.sh /sbin
+COPY .condarc /home/mettools
 
 #_______________________________________________________________________________
 # Entrypoint and default command:
 
 ENTRYPOINT [ "/sbin/entrypoint.sh" ]
 CMD [ "/bin/bash" ]
-
