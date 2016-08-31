@@ -65,12 +65,12 @@ build-mettools-ci:
 # ... based on OpenSuSE 13.2
 
 build-mettools-opensuse:
-	${DOCKER_BUILD} -f opensuse/13.2/Dockerfile -t "mettools:3.0-opensuse1302" .
+	cd opensuse/13.2 && ${DOCKER_BUILD} -t "mettools:3.0-opensuse1302" .
 
 # ... based on Ubuntu 16.04
 
 build-mettools-ubuntu:
-	${DOCKER_BUILD} -f ubuntu/16.04/Dockerfile -t "mettools:3.0-ubuntu1604" .
+	cd ubuntu/16.04 && ${DOCKER_BUILD} -t "mettools:3.0-ubuntu1604" .
 
 #_______________________________________________________________________________
 #  Run Docker images
