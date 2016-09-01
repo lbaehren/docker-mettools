@@ -15,7 +15,7 @@
 
 FROM opensuse:13.2
 
-MAINTAINER Lars Baehren "lbaehren@gmail.com"
+MAINTAINER Lars Baehren "lars.baehren@cgi.com"
 
 ##______________________________________________________________________________
 ##  Updates w.r.t. the base image
