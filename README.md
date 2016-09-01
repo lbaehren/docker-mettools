@@ -1,9 +1,9 @@
 Mettools Docker image for YAROS and GRAS-PPF
-============================================
+================================================================================
 
 
 Introduction
-------------
+-----------------------------------------------------------
 
 This Dockerfile provides the recipe to build an environment where the prototype
 `YAROS` (Yet Another Radio Occultation Software) and the operational `GRAS-PPF`
@@ -16,11 +16,12 @@ manager. More details on the dependency management can be found in `docs/02_buil
 
 
 Principal Steps
----------------
+-----------------------------------------------------------
 
 In order to be able to use this environment, the following steps are required:
 
- - Install Docker on your machine (see `docs/01_install.md`)
+ - Install Docker on your machine (see [Installing Docker on openSUSE](docs/01_install.md)
+   for more details)
 
  - Download the pre-build Docker image from Docker hub (alternatively,
    build it from this repository yourself, see `docs/02_build.md`):
@@ -38,11 +39,11 @@ In order to be able to use this environment, the following steps are required:
    source activate /home/conda/.conda/envs/default
    ~~~~
 
-A list of useful Docker and Anacaonda commands can be found under `docs/04_help`.
+A list of [useful Docker and Anacaonda commands](docs/04_help.md) can be found under `docs/04_help`.
 
 
 Organization of files and directories
--------------------------------------
+-----------------------------------------------------------
 
 After checking out a working copy (using Git) or unpacking the source archive,
 you will be left with the following directory structure:
@@ -68,7 +69,7 @@ you will be left with the following directory structure:
 
 
 License
--------
+-----------------------------------------------------------
 
 TBD
 
