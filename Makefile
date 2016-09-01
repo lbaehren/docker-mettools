@@ -60,7 +60,7 @@ build-all: build-mettools-ci build-mettools-ubuntu build-mettools-opensuse
 # ... used for continuous integration
 
 build-mettools-ci:
-	cd opensuse/13.2-ci && ${DOCKER_BUILD} -t "mettools:3.0-ci" .
+	cd opensuse/13.2-ci && ${DOCKER_BUILD} -t "mettools:ci-opensuse" .
 
 # ... based on OpenSuSE 13.2
 
@@ -82,7 +82,7 @@ run-ubuntu:
 	docker run -it -v ${BASEDIR}:/home/conda/work "ubuntu:16.04" /bin/bash
 
 run-mettools-ci:
-	docker run -it -u ${USERID} -v ${BASEDIR}:/home/mettools/work "mettools:3.0-ci"
+	docker run -it -u ${USERID} -v ${BASEDIR}:/home/mettools/work "mettools:ci-opensuse"
 
 run-mettools-opensuse:
 	docker run -it -u ${USERID} -v ${BASEDIR}:/home/conda/work "mettools:3.0-opensuse1302"
