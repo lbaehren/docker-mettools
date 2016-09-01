@@ -17,6 +17,7 @@ BASEDIR=`pwd`/..
 USERID=`id -u`
 TIMESTAMP=`date +%Y%m%d`
 DOCKER_BUILD=docker build --rm=true --force-rm
+METTOOLS_VERSION=3.0
 
 #_______________________________________________________________________________
 #  Help message with overview of available targets
@@ -65,12 +66,12 @@ build-mettools-ci:
 # ... based on OpenSuSE 13.2
 
 build-mettools-opensuse:
-	cd opensuse/13.2 && ${DOCKER_BUILD} -t "mettools:3.0-opensuse1302" .
+	cd opensuse/13.2 && ${DOCKER_BUILD} -t "mettools:${METTOOLS_VERSION}-opensuse1302" .
 
 # ... based on Ubuntu 16.04
 
 build-mettools-ubuntu:
-	cd ubuntu/16.04 && ${DOCKER_BUILD} -t "mettools:3.0-ubuntu1604" .
+	cd ubuntu/16.04 && ${DOCKER_BUILD} -t "mettools:${METTOOLS_VERSION}-ubuntu1604" .
 
 #_______________________________________________________________________________
 #  Run Docker images
@@ -85,7 +86,7 @@ run-mettools-ci:
 	docker run -it -u ${USERID} -v ${BASEDIR}:/home/mettools/work "mettools-ci:latest-opensuse1302"
 
 run-mettools-opensuse:
-	docker run -it -u ${USERID} -v ${BASEDIR}:/home/conda/work "mettools:3.0-opensuse1302"
+	docker run -it -u ${USERID} -v ${BASEDIR}:/home/conda/work "mettools:${METTOOLS_VERSION}-opensuse1302"
 
 run-mettools-ubuntu:
-	docker run -it -u ${USERID} -v ${BASEDIR}:/home/conda/work "mettools:3.0-ubuntu1604"
+	docker run -it -u ${USERID} -v ${BASEDIR}:/home/conda/work "mettools:${METTOOLS_VERSION}-ubuntu1604"
