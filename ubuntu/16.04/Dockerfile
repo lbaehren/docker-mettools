@@ -17,7 +17,6 @@ FROM ubuntu:16.04
 
 MAINTAINER christian Marquardt <christian@marquardt.sc>
 
-
 #_______________________________________________________________________________
 # Update & install development tools via the system's package manager:
 
