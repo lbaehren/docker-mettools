@@ -77,7 +77,8 @@ RUN zypper --non-interactive install cmake && \
 
 RUN useradd --uid 1001 --create-home --gid 0 --comment "MetTools" mettools && \
     chown -R mettools /home/mettools && \
-    chmod -R u+w,g+w /home/mettools
+    chmod -R u+w,g+w /home/mettools && \
+    rm -rf /home/mettools/.config
 
 #_______________________________________________________________________________
 # Set environment variables:
