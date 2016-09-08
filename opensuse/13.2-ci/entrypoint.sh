@@ -32,7 +32,7 @@ if [ x"$USER_ID" != x"0" -a x"$USER_ID" != x"1001" ]; then
     # Copy passwd file and change the user name of the default user so that we
     # can destingish files created by the default user and the current user
     # (both will be in the same group).
-    cat /etc/passwd | sed -e 's/^mettools:/builder:/' > $NSS_WRAPPER_PASSWD
+    cat /etc/passwd | sed -e 's/^mettools:/mettools:/' > $NSS_WRAPPER_PASSWD
 
     # Add a new passwd database file entry for the current user with name
     # 'mettools' and group id '0' so that it can also modify files from the default
