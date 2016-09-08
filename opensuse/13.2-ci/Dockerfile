@@ -45,7 +45,8 @@ RUN zypper --non-interactive install -t pattern devel_C_C++ ; \
         libxml2-devel \
         libaio1 \
         sed \
-        sqlite3-devel
+        sqlite3-devel \
+        openssh
 
 #_______________________________________________________________________________
 # Tini (see https://github.com/krallin/tini)
