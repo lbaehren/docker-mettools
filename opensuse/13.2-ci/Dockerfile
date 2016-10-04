@@ -18,35 +18,28 @@ FROM opensuse:13.2
 MAINTAINER Lars Baehren "lars.baehren@cgi.com"
 
 ##______________________________________________________________________________
-##  Updates w.r.t. the base image
+##  Update and installation of system packages
 
 RUN zypper --non-interactive update && \
-    zypper --non-interactive install wget nano ncurses-devel
-
-##______________________________________________________________________________
-##  Install packages required for GRAS-PPF
-
-RUN zypper --non-interactive install -t pattern devel_C_C++ ; \
+    zypper --non-interactive install nano ncurses-devel && \
     zypper --non-interactive install \
-        boost-devel \
+        automake \
+        bzip2 \
         curl \
         gcc \
         gcc-c++ \
         gcc-fortran \
         git \
-        gitk \
-        bzip2 \
         grep \
-        make \
-        automake \
         libgfortran3 \
-        libxerces-c-devel \
+        libtool \
         libxml2 \
         libxml2-devel \
-        libaio1 \
+        make \
+        openssh \
         sed \
-        sqlite3-devel \
-        openssh
+        sqlite3-devel
+
 
 #_______________________________________________________________________________
 # Tini (see https://github.com/krallin/tini)
