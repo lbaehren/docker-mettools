@@ -21,7 +21,7 @@ MAINTAINER Lars Baehren "lars.baehren@cgi.com"
 ##  Update and installation of system packages
 
 RUN zypper --non-interactive update && \
-    zypper --non-interactive install nano ncurses-devel && \
+    zypper --non-interactive install nano ncurses-devel which && \
     zypper --non-interactive install \
         automake \
         bzip2 \
